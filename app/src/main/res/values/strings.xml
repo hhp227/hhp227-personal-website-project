@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Wadiz</string>
+    <string name="title">제목</string>
+    <string name="type">타입</string>
+    <string name="keyword01">\@키워드</string>
+    <string name="keyword02">#키워드1</string>
+    <string name="keyword03">#키워드2</string>
+    <string name="price">가격</string>
 </resources>
