@@ -10,7 +10,7 @@
     </select>
 
     <insert id="addUser" parameterType="kr.hhp227.Webapp.model.User">
-        INSERT INTO users (username, password, isAccountNonExpired, isAccountNonLocked, isCredentialsNonExpired, isEnabled)
+        INSERT INTO users (username, password, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled)
         VALUES (#{username}, #{password}, #{isAccountNonExpired}, #{isAccountNonLocked}, #{isCredentialsNonExpired}, #{isEnabled})
     </insert>
 

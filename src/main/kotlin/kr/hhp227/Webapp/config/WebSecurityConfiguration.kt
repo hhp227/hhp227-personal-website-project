@@ -11,14 +11,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfiguration(
-    private val passwordEncoder: PasswordEncoder,
     private val userService: UserService
 ) {
     @Bean
@@ -60,7 +58,7 @@ class WebSecurityConfiguration(
         auth
             .inMemoryAuthentication()
             .withUser("Admin")
-            .password(passwordEncoder.encode("AdminTest"))
+            .password(userService.getPasswordEncoder().encode("AdminTest"))
             .roles("ADMIN")
     }
 }
