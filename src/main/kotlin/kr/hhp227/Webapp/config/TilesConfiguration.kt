@@ -11,22 +11,18 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver
 @Configuration
 class TilesConfiguration {
     @Bean
-    fun urlBasedViewResolver() = UrlBasedViewResolver()
-        .apply {
-            order = 2
-
-            setViewClass(JstlView::class.java)
-            setPrefix("/WEB-INF/jsp/")
-            setSuffix(".jsp")
-        }
+    fun urlBasedViewResolver() = UrlBasedViewResolver().apply {
+        order = 2
+        setViewClass(JstlView::class.java)
+        setPrefix("/WEB-INF/jsp/")
+        setSuffix(".jsp")
+    }
 
     @Bean
-    fun viewResolver() = UrlBasedViewResolver()
-        .apply {
-            order = 1
-
-            setViewClass(TilesView::class.java)
-        }
+    fun viewResolver() = UrlBasedViewResolver().apply {
+        order = 1
+        setViewClass(TilesView::class.java)
+    }
 
     @Bean
     fun tilesViewResolver() = TilesViewResolver()
