@@ -1,5 +1,6 @@
 package kr.hhp227.Webapp.controller
 
+import kr.hhp227.Webapp.model.LoginViewModel
 import kr.hhp227.Webapp.model.User
 import kr.hhp227.Webapp.service.UserService
 import org.springframework.security.core.authority.AuthorityUtils
@@ -7,9 +8,13 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import javax.validation.Valid
 
 @Controller
 class AccountController(
@@ -18,6 +23,7 @@ class AccountController(
     @RequestMapping("Login")
     fun login(modelMap: ModelMap): String {
         modelMap.addAttribute("ViewBag", mapOf("Title" to "로그인"))
+        modelMap.addAttribute("LoginViewModel", LoginViewModel())
         return "account/login"
     }
 
