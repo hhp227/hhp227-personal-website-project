@@ -17,12 +17,12 @@ class ManageController {
         modelMap: ModelMap
     ): String {
         val statusMessage = when {
-            message.equals("ChangePasswordSuccess") -> "Your password has been changed."
-            message.equals("SetPasswordSuccess") -> "Your password has been set."
-            message.equals("SetTwoFactorSuccess") -> "Your two-factor authentication provider has been set."
-            message.equals("Error") -> "An error has occurred."
-            message.equals("AddPhoneSuccess") -> "Your phone number was added."
-            message.equals("RemovePhoneSuccess") -> "Your phone number was removed."
+            message == "ChangePasswordSuccess" -> "Your password has been changed."
+            message == "SetPasswordSuccess" -> "Your password has been set."
+            message == "SetTwoFactorSuccess" -> "Your two-factor authentication provider has been set."
+            message == "Error" -> "An error has occurred."
+            message == "AddPhoneSuccess" -> "Your phone number was added."
+            message == "RemovePhoneSuccess" -> "Your phone number was removed."
             else -> ""
         }
 
