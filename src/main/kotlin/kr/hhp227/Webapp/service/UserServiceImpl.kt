@@ -35,6 +35,19 @@ class UserServiceImpl(
         }
     }
 
+    override fun changePassword(username: String?, oldPassword: String?, newPassword: String?): Boolean {
+        val user = userMapper.getUser(username)
+
+        if (passwordEncoder.matches(oldPassword, user!!.getPassword())) {
+            val encodedNewPassword = passwordEncoder.encode(newPassword)
+
+            user.setPassword(encodedNewPassword)
+            userMapper.setUser(user)
+            return true
+        }
+        return false
+    }
+
     override fun removeUser(username: String?) {
         userMapper.removeUser(username)
         userMapper.removeAuthority(username)

@@ -1,7 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%
+    request.setAttribute("ViewBag", Map.of("Title", "등록"));
+%>
 
 <h2>${ViewBag.Title}.</h2>
 
@@ -11,7 +14,9 @@
     <hr />
     <div class="validation-summary-errors text-danger">
         <ul>
-            <form:errors path="*" cssClass="text-danger"/>
+            <c:forEach var="msg" items="${prioritizedErrors}">
+                <li class="text-danger">${msg}</li>
+            </c:forEach>
         </ul>
     </div>
     <div class="form-group">

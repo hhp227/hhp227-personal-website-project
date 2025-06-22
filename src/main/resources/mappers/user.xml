@@ -14,6 +14,12 @@
         VALUES (#{username}, #{password}, #{isAccountNonExpired}, #{isAccountNonLocked}, #{isCredentialsNonExpired}, #{isEnabled})
     </insert>
 
+    <update id="setUser" parameterType="kr.hhp227.Webapp.model.User">
+        UPDATE users
+        SET password = #{password}
+        WHERE username = #{username}
+    </update>
+
     <insert id="addAuthority" parameterType="org.springframework.security.core.GrantedAuthority">
         INSERT INTO authority (username, authority_name)
         VALUES

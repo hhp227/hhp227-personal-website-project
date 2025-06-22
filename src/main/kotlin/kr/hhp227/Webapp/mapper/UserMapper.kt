@@ -12,6 +12,8 @@ interface UserMapper {
 
     fun addUser(user: User?)
 
+    fun setUser(user: User?)
+
     fun addAuthority(user: User?)
 
     fun removeUser(username: String?)

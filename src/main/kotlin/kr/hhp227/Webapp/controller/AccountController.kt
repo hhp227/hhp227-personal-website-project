@@ -22,14 +22,12 @@ class AccountController(
 ) {
     @RequestMapping("Login")
     fun login(modelMap: ModelMap): String {
-        modelMap.addAttribute("ViewBag", mapOf("Title" to "로그인"))
         modelMap.addAttribute("LoginViewModel", LoginViewModel())
         return "account/login"
     }
 
     @RequestMapping("Register")
     fun register(modelMap: ModelMap): String {
-        modelMap.addAttribute("ViewBag", mapOf("Title" to "등록"))
         modelMap.addAttribute("RegisterViewModel", RegisterViewModel())
         return "account/register"
     }
@@ -40,9 +38,9 @@ class AccountController(
         @ModelAttribute("RegisterViewModel")
         model: RegisterViewModel,
         bindingResult: BindingResult,
-        user: User
+        user: User,
+        modelMap: ModelMap
     ): String {
-        println("registerProcess: " + model)
         user.setAccountNonExpired(true)
         user.setAccountNonLocked(true)
         user.setCredentialsNonExpired(true)
@@ -51,13 +49,11 @@ class AccountController(
         if (model.password != model.confirmPassword) {
             bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "비밀번호가 일치하지 않습니다.")
         }
-
         if (bindingResult.hasErrors()) {
+            val prioritizedMessages = getPrioritizedErrors(model) // addErrors
+            modelMap.addAttribute("prioritizedErrors", prioritizedMessages)
             return "account/register"
         }
-
-
-
         userService.registerUser(user)
         return "redirect:/"
     }
@@ -68,5 +64,22 @@ class AccountController(
     fun logout(request: HttpServletRequest?, response: HttpServletResponse?): String {
         SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().authentication)
         return "redirect:/"
+    }
+
+    private fun getPrioritizedErrors(model: RegisterViewModel): MutableList<String?> {
+        val messages: MutableList<String?> = ArrayList<String?>()
+
+        if (model.username.isNullOrEmpty()) {
+            messages.add("사용자 이름 필드가 필요합니다.")
+        }
+        if (model.password.isNullOrEmpty()) {
+            messages.add("암호 필드가 필요합니다.")
+        } else if (model.password.length < 6) {
+            messages.add("암호은(는) 6자 이상이어야 합니다.")
+        }
+        if (model.password != model.confirmPassword) {
+            messages.add("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.")
+        }
+        return messages
     }
 }
